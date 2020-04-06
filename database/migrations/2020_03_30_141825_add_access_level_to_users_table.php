@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRoleToUserTable extends Migration
+class AddAccessLevelToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddRoleToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('access_level')->default(1);
         });
     }
 
@@ -25,8 +25,8 @@ class AddRoleToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['access_level']);
         });
     }
 }

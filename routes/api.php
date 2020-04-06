@@ -23,4 +23,13 @@ Route::prefix('auth')->group(function() {
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('login', 'Auth\LoginController@login');
     Route::post('logout', 'Auth\LoginController@logout');
+    Route::post('activate', 'Auth\RegisterController@activate');
+});
+
+/*
+    USER ROUTES
+*/
+Route::get('user/all', 'UserController@allUsers');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });

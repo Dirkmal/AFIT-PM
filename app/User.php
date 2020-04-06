@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\CanResetPassword ;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'access_level', 'activation_token', 'active'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,11 +33,11 @@ class User extends Authenticatable
      */
     protected $casts = ['email_verified_at' => 'datetime'];
 
-    public function generateToken() {
-        $this->api_token = Str::random(60);
+    public function generateActivationToken() {
+        $this->activation_token = Str::random(10);
         $this->save();
 
-        return $this->api_token;
+        return $this->activation_token;
     }
 
     public function projects() {
